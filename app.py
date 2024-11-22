@@ -4,6 +4,9 @@ import pandas as pd
 import json
 import matplotlib.pyplot as plt
 
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
 # st.session_state.comment_path = "comments_cleaned.json"
 # st.session_state.ratings_path = "comment_ratings_all_projects.json"
 
@@ -25,8 +28,6 @@ st.subheader("All comments")
 st.dataframe(comment_data)
 st.subheader("All ratings")
 st.dataframe(ratings_data)
-
-st.header("Plots")
 
 @st.fragment
 def plot_histograms():
@@ -50,4 +51,47 @@ def plot_histograms():
         ax.set_xlabel("Categories")
         st.pyplot(fig)
 
-plot_histograms()
+@st.fragment
+def pca():
+    n_components = st.number_input(
+        label="Set the number of components",
+        min_value=2,
+        max_value=14,
+        value=2
+    )
+    data = ratings_data.iloc[:, 2:]
+    pca = PCA(n_components=n_components)
+    principal_components = pca.fit_transform(data)
+    cumulative_variance = np.cumsum(pca.explained_variance_ratio_)
+
+    st.write(f"Explained variance ratio: {pca.explained_variance_ratio_}")
+    st.write(f"Cumulative variance: {cumulative_variance}")
+
+    pca_data = pd.DataFrame(principal_components, columns=[f"PC{i+1}" for i in range(n_components)])
+    fig, ax = plt.subplots()
+    ax.scatter(pca_data["PC1"], pca_data["PC2"], alpha=0.3)
+    ax.set_xlabel("Principal Component 1")
+    ax.set_ylabel("Principal Component 2")
+    st.pyplot(fig)
+    st.dataframe(pca_data)
+
+st.header("PCA")
+pca()
+
+st.header("Plots")
+with st.container(height=500):
+    plot_histograms()
+
+# # Select numerical columns
+# data = df_ratings.iloc[:, 2:]
+
+# # Get components
+# n_components=2
+# pca = PCA(n_components=n_components)
+# principal_components = pca.fit_transform(data)
+# df_pca = pd.DataFrame(principal_components, columns=[f"PC{i+1}" for i in range(n_components)])
+
+# cumulative_variance = np.cumsum(pca.explained_variance_ratio_)
+
+# print("Explained variance ratio:", pca.explained_variance_ratio_)
+# print("Cumulative variance:", cumulative_variance)
