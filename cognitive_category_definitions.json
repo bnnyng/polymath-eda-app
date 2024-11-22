@@ -1,0 +1,16 @@
+{
+    "deductive": "Logical reasoning grounded in formal, step-by-step deduction; often follows a sequence resembling formal proof or canonical mathematical logic.",
+    "definitions": "Discussing or clarifying the meaning of specific terms or concepts, including potential ambiguities or the necessity for formal definitions.",
+    "strategic": "Considering high-level plans or approaches, such as selecting mathematical tools, fields, or planning successive steps in problem-solving.",
+    "parallelism": "Applying a strategy or reasoning pathway from one context to another, demonstrating transferable steps or analogous relationships between distinct problems.",
+    "inductive": "Using probabilistic or pattern-based reasoning to predict properties or outcomes, including assessing the likelihood of success for a potential proof or deduction sequence.",
+    "speculative": "Posing hypotheses about what might be possible, beyond probability-based conclusions, emphasizing potential without asserting likely truth.",
+    "representation": "Recasting a mathematical concept in a new form, such as with analogies, alternative notations, informal language, or a novel conceptual framework.",
+    "analogy": "Describing similarities between distinct objects or properties without suggesting direct equivalence, typically to illustrate conceptual relationships.",
+    "relevance": "Evaluating the importance or applicability of a concept or method to the current problem, often questioning or affirming connections.",
+    "surprise": "Expressing unexpected results or insights, especially when a deduction or logical consequence defies initial expectations or intuition.",
+    "impasse": "Discussing difficulties in progression or a lack of clarity on the next steps, often indicating feeling 'stuck' in reasoning.",
+    "examples": "Providing specific instances, counterexamples, or cases as demonstrations, often to illuminate a broader principle or to test the boundaries of a concept.",
+    "interpersonal": "Directly addressing another person\u2019s ideas or contributions, engaging in a discussion or critique of others' reasoning.",
+    "empirical": "Incorporating experimental or observational results, such as those derived from computational simulations, to support or refute a mathematical idea."
+}
