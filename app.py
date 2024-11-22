@@ -19,6 +19,7 @@ for project_id in project_ids:
         ratings_data["id"].apply(lambda x: x.split('-')[1] == project_id)
     ]
 
+
 st.header("View data")
 st.subheader("All comments")
 st.dataframe(comment_data)
@@ -26,22 +27,27 @@ st.subheader("All ratings")
 st.dataframe(ratings_data)
 
 st.header("Plots")
-threshold = st.number_input(
-    label="Enter a threshold value between 0 and 1:",
-    min_value = float(0),
-    max_value = float(1),
-    value = 0.7
-)
 
-for i, (id, ratings) in enumerate(project_data.items()):
-    ratings_num = ratings.iloc[:, 2:].apply(pd.to_numeric, errors='coerce')
-    ratings_num = (ratings_num > threshold).astype(int) 
-    ratings_num.columns = ratings_num.columns.str.replace("category-", "", regex=False)
-    ratings_sums = ratings_num.sum()
-    
-    fig, ax = plt.subplots(figsize=(15, 5))
-    ax.bar(ratings_sums.index, ratings_sums.values)
-    ax.set_title(f"{id} GPT Ratings With Threshold {threshold}")
-    ax.set_ylabel(f"Number of comments with rating above {threshold}")
-    ax.set_xlabel("Categories")
-    st.pyplot(fig)
+@st.fragment
+def plot_histograms():
+    threshold = st.number_input(
+        label="Enter a threshold value between 0 and 1:",
+        min_value = float(0),
+        max_value = float(1),
+        value = 0.7
+    )
+
+    for i, (id, ratings) in enumerate(project_data.items()):
+        ratings_num = ratings.iloc[:, 2:].apply(pd.to_numeric, errors='coerce')
+        ratings_num = (ratings_num > threshold).astype(int) 
+        ratings_num.columns = ratings_num.columns.str.replace("category-", "", regex=False)
+        ratings_sums = ratings_num.sum()
+        
+        fig, ax = plt.subplots(figsize=(15, 5))
+        ax.bar(ratings_sums.index, ratings_sums.values)
+        ax.set_title(f"{id} GPT Ratings With Threshold {threshold}")
+        ax.set_ylabel(f"Number of comments with rating above {threshold}")
+        ax.set_xlabel("Categories")
+        st.pyplot(fig)
+
+plot_histograms()
